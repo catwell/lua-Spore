@@ -1,6 +1,7 @@
 Revision history for lua-Spore
 
-0.2.1
+0.3.0
+	- handle parameter 'payload' from specification (new version of SPORE specification)
 	- add middleware Auth.DataPublica
 
 0.2.0  Sat Mar  3 22:30:00 2012
