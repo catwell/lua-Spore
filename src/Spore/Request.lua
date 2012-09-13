@@ -98,6 +98,7 @@ function m:finalize (oauth)
         end
     end
     if #query > 0 then
+        table.sort(query)
         query_string = tconcat(query, '&')
     end
     env.PATH_INFO = path_info
