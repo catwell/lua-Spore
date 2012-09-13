@@ -9,7 +9,7 @@
 local pairs = pairs
 local tconcat = require 'table'.concat
 local tsort = require 'table'.sort
-local digest = require 'crypto'.evp.digest
+local digest = require 'crypto'.digest
 local url = require 'socket.url'
 local request = require 'Spore.Protocols'.request
 require 'Spore'.early_validate = false
