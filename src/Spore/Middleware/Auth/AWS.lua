@@ -11,8 +11,14 @@ local tostring = tostring
 local table = require 'table'
 local os = require 'os'
 local mime = require 'mime'
-local evp = require 'crypto'.evp
-local hmac = require 'crypto'.hmac
+local crypto = require 'crypto'
+local digest
+if crypto.evp then -- luacrypto 0.2
+    digest = crypto.evp.digest
+else -- luacrypto 0.3
+    digest = crypto.digest
+end
+local hmac = crypto.hmac
 local request = require 'Spore.Protocols'.request
 local slurp = require 'Spore.Protocols'.slurp
 require 'Spore'.early_validate = false
@@ -92,7 +98,7 @@ function m:call (req)
             req.headers['content-length'] = payload:len()
             req.headers['content-type'] = req.headers['content-type'] or 'application/x-www-form-urlencoded'
             if spore.headers and spore.headers['Content-MD5'] == 'AWS' then
-                req.headers['content-md5'] = evp.digest('md5', payload)
+                req.headers['content-md5'] = digest('md5', payload)
             end
         end
 

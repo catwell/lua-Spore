@@ -5,7 +5,13 @@
 local error = error
 local time = require 'os'.time
 local format = require 'string'.format
-local evp = require 'crypto'.evp
+local crypto = require 'crypto'
+local digest
+if crypto.evp then -- luacrypto 0.2
+    digest = crypto.evp.digest
+else -- luacrypto 0.3
+    digest = crypto.digest
+end
 local url = require 'socket.url'
 local Protocols = require 'Spore.Protocols'
 
@@ -31,22 +37,22 @@ function m:call (req)
         local cnonce = m.generate_nonce()
         local uri = path_query(req.url)
         local ha1, ha2, response
-        ha1 = evp.digest('md5', self.username .. ':'
-                             .. self.realm .. ':'
-                             .. self.password)
-        ha2 = evp.digest('md5', req.method .. ':'
-                             .. uri)
+        ha1 = digest('md5', self.username .. ':'
+                         .. self.realm .. ':'
+                         .. self.password)
+        ha2 = digest('md5', req.method .. ':'
+                         .. uri)
         if self.qop then
-            response = evp.digest('md5', ha1 .. ':'
-                                      .. self.nonce .. ':'
-                                      .. nc .. ':'
-                                      .. cnonce .. ':'
-                                      .. self.qop .. ':'
-                                      .. ha2)
+            response = digest('md5', ha1 .. ':'
+                                  .. self.nonce .. ':'
+                                  .. nc .. ':'
+                                  .. cnonce .. ':'
+                                  .. self.qop .. ':'
+                                  .. ha2)
         else
-            response = evp.digest('md5', ha1 .. ':'
-                                      .. self.nonce .. ':'
-                                      .. ha2)
+            response = digest('md5', ha1 .. ':'
+                                  .. self.nonce .. ':'
+                                  .. ha2)
         end
         local auth = 'Digest username="' .. self.username
                   .. '", realm="' .. self.realm
