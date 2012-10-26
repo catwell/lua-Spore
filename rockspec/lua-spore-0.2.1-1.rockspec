@@ -1,9 +1,9 @@
 package = 'lua-Spore'
-version = '@version@-@rev@'
+version = '0.2.1-1'
 source = {
-    url = 'http://cloud.github.com/downloads/fperrad/lua-Spore/lua-spore-@version@.tar.gz',
-    md5 = '@md5@',
-    dir = 'lua-Spore-@version@',
+    url = 'http://cloud.github.com/downloads/fperrad/lua-Spore/lua-spore-0.2.1.tar.gz',
+    md5 = 'a78fcc331d1d270a090af1035ef6c085',
+    dir = 'lua-Spore-0.2.1',
 }
 description = {
     summary = "a generic ReST client",
