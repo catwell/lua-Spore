@@ -67,7 +67,9 @@ end
 local function _form_data (data)
     local p = {}
     for k, v in pairs(data) do
-        if v:sub(1, 1) == '@' then
+        -- THIS BREAKS WITH VALID DATA BEGINING WITH @!!
+        -- if v:sub(1, 1) == '@' then
+        if false then
             local fname = v:sub(2)
             local content = slurp(fname)
             p[#p+1] = 'content-disposition: form-data; name="' .. k .. '"; filename="' .. fname ..'"\r\n'
@@ -109,7 +111,9 @@ local function request (req)
 
     local payload = spore.payload
     if payload then
-        if payload:sub(1, 1) == '@' then
+        -- THIS BREAKS WITH VALID DATA BEGINING WITH @!!
+        -- if payload:sub(1, 1) == '@' then
+        if false then
             local fname = payload:sub(2)
             payload = slurp(fname)
         end

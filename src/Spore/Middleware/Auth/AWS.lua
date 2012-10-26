@@ -88,9 +88,10 @@ function m:call (req)
         if payload then
             -- THIS BREAKS WITH VALID DATA BEGINING WITH @!!
             -- if payload:sub(1, 1) == '@' then
-            --     local fname = payload:sub(2)
-            --     payload = slurp(fname)
-            -- end
+            if false then
+                local fname = payload:sub(2)
+                payload = slurp(fname)
+            end
             req.headers['content-length'] = payload:len()
             req.headers['content-type'] = req.headers['content-type'] or 'application/x-www-form-urlencoded'
             if spore.headers and spore.headers['Content-MD5'] == 'AWS' then
